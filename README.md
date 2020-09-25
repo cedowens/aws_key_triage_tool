@@ -28,7 +28,7 @@ The script does the following checks:
 **Steps**
 1. pip3 install -r requirements.txt (will install boto3)
 
-2. put all of the aws key info in an input file that the script will read from. This should be a simple text file with each each row containing aws key info separated by a comma in the following format:
+2. put all of the aws key info in an input file that the script will read from. You will need the access key, secret key, and region for each key pair. This should be a simple text file with each each row containing aws key info separated by a comma in the following format:
 
 ***accessky,secretky,region***
 
