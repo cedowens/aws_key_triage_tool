@@ -15,15 +15,17 @@ The script does the following checks:
 
 - Attempts to list services specific credential info
 
-- Attemps to list the AWS account password policy
+- Attempts to list the AWS account password policy
 
 - Attempts to list IAM group info
 
-- Attemps to describe ec2 instance info
+- Attempts to describe ec2 instance info
 
 - Attempts to list buckets and the top level directory/file within each bucket
 
-- Attemps to list IAM role info
+- Attempts to list IAM role info
+
+- Attempts to list lambda functions
 
 **Steps**
 1. clone https://github.com/boto/boto3
