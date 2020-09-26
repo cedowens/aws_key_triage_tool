@@ -11,7 +11,7 @@ The script does the following checks:
 
 - Gets the user identity of the keys
 
-- Attempts to lists IAM users 
+- Attempts to list IAM users 
 
 - Attempts to list services specific credential info
 
