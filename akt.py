@@ -100,7 +100,7 @@ def listusers(akey,skey,region):
         print("[-] Error %s" % e)
 ###################
 def sscreds(akey,skey,region):
-    print("--------------> list servicespecificcredentials:")
+    print("--------------> attempting to list servicespecificcredentials:")
     client = boto3.client('iam',aws_access_key_id=akey,aws_secret_access_key=skey,region_name=region)
     try:
         response = client.list_service_specific_credentials()
@@ -123,7 +123,7 @@ def sscreds(akey,skey,region):
         print("[-] Error %s" % e)
 #####################
 def passpol(akey,skey,region):
-    print("--------------> get AWS account password policy:")
+    print("--------------> attempting to get AWS account password policy:")
     client = boto3.client('iam',aws_access_key_id=akey,aws_secret_access_key=skey,region_name=region)
     try:
         response = client.get_account_password_policy()
@@ -133,7 +133,7 @@ def passpol(akey,skey,region):
         print("[-] Error %s" % e)
 #####################
 def listgroups(akey,skey,region):
-    print("--------------> list IAM group info:")
+    print("--------------> attempting to list IAM group info:")
     client = boto3.client('iam',aws_access_key_id=akey,aws_secret_access_key=skey,region_name=region)
     try:
         response = client.list_groups()
@@ -151,7 +151,7 @@ def listgroups(akey,skey,region):
         print("[-] Error %s" % e)
 #######################
 def instanceinfo(akey,skey,region):
-    print("--------------> Attempt to describe ec2 instances:")
+    print("--------------> attempting to describe ec2 instances:")
     client = boto3.client('ec2',aws_access_key_id=akey,aws_secret_access_key=skey,region_name=region)
     try:
         response = client.describe_instances()
@@ -187,7 +187,7 @@ def instanceinfo(akey,skey,region):
         print("[-] Error %s" % e)
 #########################
 def listbuckets(akey,skey,region):
-    print("--------------> Attempt to list s3 buckets available to these AWS keys:")
+    print("--------------> attempting to list s3 buckets available to these AWS keys:")
     client = boto3.client('s3',aws_access_key_id=akey,aws_secret_access_key=skey,region_name=region)
     try:
         response = client.list_buckets()
@@ -226,7 +226,7 @@ def listbuckets(akey,skey,region):
         print("[-] Error %s" % e)
 ##########################
 def listroles(akey,skey,region):
-    print("--------------> Attempt to list IAM roles:")
+    print("--------------> attempting to list IAM roles:")
     client = boto3.client('iam',aws_access_key_id=akey,aws_secret_access_key=skey,region_name=region)
     try:
         response = client.list_roles()
@@ -246,7 +246,36 @@ def listroles(akey,skey,region):
     except Exception as e:
         print("[-] Error %s" % e)
 ###########################
-            
+def lstlambda(akey,skey,region):
+    print("--------------> attempting to list lambda functions:")
+    client = boto3.client('lambda',aws_access_key_id=akey,aws_secret_access_key=skey,region_name=region)
+    try:
+        response = client.list_functions()
+        response2 = response['Functions']
+        response3 = str(response2).split(',')
+
+        for each in response3:
+            if 'FunctionName' in each:
+                print("===>Function Name: %s" % each.replace("'FunctionName': ","").replace("{","").replace("}","").replace("[","").replace("]",""))
+            elif 'FunctionArn' in each:
+                print("FunctionArn: %s" % each.replace("'FunctionArn':","").replace("{","").replace("}","").replace("[","").replace("]",""))
+            elif 'Handler' in each:
+                print("Handler: %s" % each.replace("'Handler':","").replace("{","").replace("}","").replace("[","").replace("]",""))
+            elif 'Role' in each:
+                print("Role: %s" % each.replace("'Role':","").replace("{","").replace("}","").replace("[","").replace("]",""))
+            elif 'Description' in each:
+                print("Description: %s" % each.replace("'Description':","").replace("{","").replace("}","").replace("[","").replace("]",""))
+            elif 'BUCKET_PREFIX' in each:
+                print("Bucket Prefix Env Variable: %s" % each.replace("'BUCKET_PREFIX':","").replace("{","").replace("}","").replace("[","").replace("]",""))
+            elif 'CONFIG_FILE' in each:
+                print("Config File Env Variable: %s" % each.replace("'Environment': 'Variables': ","").replace("'CONFIG_FILE':","").replace("{","").replace("}","").replace("[","").replace("]",""))
+            elif 'BUCKET_NAME' in each:
+                print("Bucket Name Env Variable: %s" % each.replace("'BUCKET_NAME':","").replace("{","").replace("}","").replace("[","").replace("]",""))
+            else:
+                pass
+    except Exception as e:
+        print("[-] Error %s" % e)
+##########################
 
 parser = OptionParser()
 parser.add_option("-f", "--file", help="Path to input file with AWS creds")
@@ -280,6 +309,7 @@ if os.path.exists(file):
                 instanceinfo(akey,skey,region)
                 listbuckets(akey,skey,region)
                 listroles(akey,skey,region)
+                lstlambda(akey,skey,region)
                 print("*"*100)
             except Exception as e:
                 print("Error with this key set: %s:%s" % (akey,skey))
