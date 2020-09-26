@@ -36,6 +36,6 @@ The script does the following checks:
 
 **I have included a sample input file (named sample_input_file.txt) showing the format to add your access keys, secret keys, and region info for each key pair you want to check**
 
-4. **python3 aws_key_triage_tool.py -f [path_to_input_file]** - the script will perform triage checks on each key pair in this input file
+4. **python3 akt.py -f [path_to_input_file]** - the script will perform triage checks on each key pair in this input file
 
-5. I did not build outfile capability into this script...so to write results to a file: **python3 aws_key_triage_tool.py -f [path_to_input_file] > outfile.txt**
+5. I did not build outfile capability into this script...so to write results to a file: **python3 akt.py -f [path_to_input_file] > outfile.txt**
