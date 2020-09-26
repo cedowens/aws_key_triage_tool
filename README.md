@@ -26,9 +26,11 @@ The script does the following checks:
 - Attemps to list IAM role info
 
 **Steps**
-1. pip3 install requirements.txt (will install boto3)
+1. clone https://github.com/boto/boto3
 
-2. put all of the aws key info in an input file that the script will read from. You will need the access key, secret key, and region for each key pair. This should be a simple text file with each each row containing aws key info separated by a comma in the following format:
+2. cd into boto3 and run **sudo python3 setup.py install**. This will install boto3 and botocore.
+
+3. put all of the aws key info in an input file that the script will read from. You will need the access key, secret key, and region for each key pair. This should be a simple text file with each each row containing aws key info separated by a comma in the following format:
 
 ***accessky,secretky,region***
 
@@ -46,6 +48,6 @@ sampleaccesskey3,samplescretkey3,us-west-2
 
 .
 
-3. **python3 aws_key_triage_tool.py -f [path_to_input_file]** - the script will perform triage checks on each key pair in this input file
+4. **python3 aws_key_triage_tool.py -f [path_to_input_file]** - the script will perform triage checks on each key pair in this input file
 
-4. I did not build outfile capability into this script...so to write results to a file: **python3 aws_key_triage_tool.py -f [path_to_input_file] > outfile.txt**
+5. I did not build outfile capability into this script...so to write results to a file: **python3 aws_key_triage_tool.py -f [path_to_input_file] > outfile.txt**
