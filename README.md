@@ -30,7 +30,7 @@ The script does the following checks:
 
 2. cd into boto3 and run **sudo python3 setup.py install**. This will install boto3 and botocore.
 
-3. put all of the aws key info in an input file that the script will read from. You will need the access key, secret key, and region for each key pair. This should be a simple text file with each each row containing aws key info separated by a comma in the following format:
+3. put all of the aws key info in an input file that the script will read from. You will need the access key, secret key, and region for each key pair. Add these into a simple text file with each each row containing aws key, secret key, and region info separated by a comma in the following format:
 
 ***accessky,secretky,region***
 
