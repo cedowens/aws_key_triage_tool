@@ -1,5 +1,10 @@
 # AWS Key Triage (AKT) Script
-This is a python script that leverages the boto3 library to automate initial triage/enumeration on a set (or multiple sets) of aws keys in an input file.
+Python scripts that leverage the boto3 library to automate initial triage/enumeration on a set (or multiple sets) of aws keys in an input file.
+
+I have included two scripts:
+
+- one for triage of aws creds found on endpoints (which usually do not have an access token)
+- one for triage of aws creds found on servers or via metadata service queries (which do usually have an access token)
 
 The goal of this tool is to speed up and automate the manual steps of running aws cli commands to determine whether aws keys in question are valid and if so what those keys have access to.
 
@@ -32,12 +37,18 @@ The script does the following checks:
 
 2. cd into boto3 and run **sudo python3 setup.py install**. This will install boto3 and botocore.
 
-3. put all of the aws key info in an input file that the script will read from. You will need the access key, secret key, and region for each key pair. Add these into a simple text file with each each row containing aws key, secret key, and region info separated by a comma in the following format for each row:
+3. put all of the aws key info in an input file that the script will read from. **If using aws keys that do not have an access token, then use the akt.py script and set up your input file in the format of sample_input_file.txt. If you are using aws keys that do have an access token, use the akt-token.py script and set your input file in the format of sample-input-file-token.txt.** Add the aws cred information accordingly in a simple .txt file matching either option.
+
+For uses of keys that do not have an access token:
 
 ***accessky,secretky,region***
 
-**I have included a sample input file (named sample_input_file.txt) showing the format to add your access keys, secret keys, and region info for each key pair you want to check**
+For uses of keys that do have an access token:
 
-4. **python3 akt.py -f [path_to_input_file]** - the script will perform triage checks on each key pair in this input file
+***accessky,secretky,region,accesstoken
 
-5. I did not build outfile capability into this script...so to write results to a file: **python3 akt.py -f [path_to_input_file] > outfile.txt**
+**I have included a sample input files (sample_input_file.txt and sample-input-file-token.txt) showing the format to add your aws cred info depending on whether or not it uses an access token**
+
+4. **python3 akt.py -f [path_to_input_file]** OR **python3 akt-token.py -f [path_to_input_file]**
+
+5. Results will be written to stdout
