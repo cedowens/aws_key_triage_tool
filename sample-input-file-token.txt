@@ -1,0 +1,7 @@
+accesskey1,secretkey1,region,accesstoken
+accesskey2,secretkey2,region,accesstoken
+accesskey3,secretkey3,region,accesstoken
+.
+.
+.
+.
